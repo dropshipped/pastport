@@ -10,7 +10,6 @@ export const MapView = ({}: Props) => {
   return (
     <Map
       mapboxAccessToken={token}
-      // @ts-expect-error typedefs dont exist
       mapLib={import("mapbox-gl")}
       initialViewState={{
         longitude: -100,
