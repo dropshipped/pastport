@@ -32,12 +32,18 @@ dependencies:
   '@trpc/server':
     specifier: ^10.43.6
     version: 10.43.6
+  '@types/geojson':
+    specifier: ^7946.0.13
+    version: 7946.0.13
   '@types/mapbox-gl':
     specifier: ^2.7.19
     version: 2.7.19
   framer-motion:
     specifier: ^11.0.3
     version: 11.0.3(react-dom@18.2.0)(react@18.2.0)
+  geojson:
+    specifier: ^0.5.0
+    version: 0.5.0
   mapbox-gl:
     specifier: ^3.1.2
     version: 3.1.2
@@ -4057,6 +4063,11 @@ packages:
 
   /geojson-vt@3.2.1:
     resolution: {integrity: sha512-EvGQQi/zPrDA6zr6BnJD/YhwAkBP8nnJ9emh3EnHQKVMfg/MRVtPbMYdgVy/IaEmn4UfagD2a6fafPDL5hbtwg==}
+    dev: false
+
+  /geojson@0.5.0:
+    resolution: {integrity: sha512-/Bx5lEn+qRF4TfQ5aLu6NH+UKtvIv7Lhc487y/c8BdludrCTpiWf9wyI0RTyqg49MFefIAvFDuEi5Dfd/zgNxQ==}
+    engines: {node: '>= 0.10'}
     dev: false
 
   /get-intrinsic@1.2.2:
