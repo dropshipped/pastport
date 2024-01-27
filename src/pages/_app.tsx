@@ -4,6 +4,7 @@ import { api } from "~/utils/api";
 import { Providers } from "~/components/providers";
 
 import "~/styles/globals.css";
+import "~/styles/mapbox.css";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
