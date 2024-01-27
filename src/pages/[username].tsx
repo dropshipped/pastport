@@ -1,20 +1,33 @@
-import { useRouter } from "next/router";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { MapView } from "~/components/mapview";
 import { ProfileBar } from "~/components/profile/profile-bar";
+import { ProfileProvider } from "~/components/profile/profile-provider";
 import { TimelineSlider } from "~/components/profile/timeline-slider";
+import { redirect } from "~/utils/redirect";
 
-type Props = {}; // eslint-disable-line
+type Props = { username: string; showProfile: boolean };
 
-const ProfilePage = ({}: Props) => {
-  const router = useRouter();
-  const username = router.query.username;
+export const getServerSideProps = (async ({ params, query, res }) => {
+  const username = String(params?.username ?? "");
+  const showProfile = query?.profile !== undefined;
 
+  if (!username.startsWith("@")) redirect(res, "/404");
+
+  // TODO: check if user exusts
+
+  return { props: { username, showProfile } };
+}) satisfies GetServerSideProps<Props>;
+
+const ProfilePage = ({
+  username,
+  showProfile,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <>
+    <ProfileProvider initialState={{ showProfile, username }}>
       <MapView />
       <ProfileBar />
       <TimelineSlider />
-    </>
+    </ProfileProvider>
   );
 };
 
