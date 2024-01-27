@@ -31,6 +31,12 @@ const config = {
         checksVoidReturn: { attributes: false },
       },
     ],
+    "no-restricted-imports": [
+      "error",
+      {
+        patterns: [".*"],
+      },
+    ],
   },
 };
 
