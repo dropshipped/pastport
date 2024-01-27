@@ -5,11 +5,14 @@ import { Providers } from "~/components/providers";
 
 import "~/styles/globals.css";
 import "~/styles/mapbox.css";
+import Layout from "~/components/layout";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <Providers>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Providers>
   );
 };

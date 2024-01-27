@@ -8,13 +8,13 @@ type Props = {}; // eslint-disable-line
 const ProfilePage = ({}: Props) => {
   const router = useRouter();
   const username = router.query.username;
-
+  console.log(username);
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
+    <>
       <MapView />
       <ProfileBar />
       <TimelineSlider />
-    </div>
+    </>
   );
 };
 
