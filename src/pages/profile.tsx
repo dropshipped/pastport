@@ -6,7 +6,7 @@ type Props = {}; // eslint-disable-line
 
 const ProfilePage = ({}: Props) => {
   return (
-    <div className="relative flex h-screen w-screen items-center justify-center">
+    <div className="relative flex h-full w-full items-center justify-center">
       <MapView />
       <ProfileBar />
       <TimelineSlider />
