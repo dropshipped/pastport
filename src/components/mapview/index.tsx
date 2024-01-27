@@ -14,14 +14,12 @@ export const MapView = ({}: Props) => {
       initialViewState={{
         longitude: -100,
         latitude: 40,
-        zoom: 1.5,
+        zoom: 0,
       }}
       // projection={"globe"} // idk what this does
       style={{
         width: "100%",
-        height: 320,
-        border: "solid 1px grey",
-        borderRadius: 16,
+        height: "100%",
       }}
       mapStyle="mapbox://styles/mapbox/streets-v12"
     />
