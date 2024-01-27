@@ -4,7 +4,7 @@ export const ChevronIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     stroke="currentColor"
     fill="none"
-    strokeWidth="2"
+    strokeWidth="1"
     viewBox="0 0 24 24"
     strokeLinecap="round"
     strokeLinejoin="round"
