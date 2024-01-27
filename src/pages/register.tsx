@@ -11,7 +11,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "",
 );
 
-const RegisterPage = (props: Props) => {
+const RegisterPage = ({}: Props) => {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
@@ -33,9 +33,11 @@ const RegisterPage = (props: Props) => {
 
   return (
     <div className="h-full w-full">
-      (!session) ? (
-      <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />) : (
-      <div>Logged in!</div>)
+      {!session ? (
+        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+      ) : (
+        <div>Logged in!</div>
+      )}
     </div>
   );
 };
