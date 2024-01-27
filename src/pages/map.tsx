@@ -18,18 +18,15 @@ const MapPage = ({}: Props) => {
           longitude: -100,
           latitude: 40,
           zoom: 1.5,
-          // center: [30, 50],
         }}
+        // projection={"globe"} // idk what this does
         style={{
-          width: "300px",
+          width: "100%",
           height: 320,
           border: "solid 1px grey",
           borderRadius: 16,
         }}
         mapStyle="mapbox://styles/mapbox/streets-v12"
-        // center: [lng, lat],
-        // zoom: zoom
-        // mapStyle="mapbox://styles/mapbox/streets-v9"
       />
     </div>
   );
