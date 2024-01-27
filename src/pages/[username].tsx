@@ -10,11 +10,11 @@ const ProfilePage = ({}: Props) => {
   const username = router.query.username;
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
-      {/* <MapView /> */}
+    <>
+      <MapView />
       <ProfileBar />
       <TimelineSlider />
-    </div>
+    </>
   );
 };
 
