@@ -29,6 +29,9 @@ dependencies:
   '@trpc/server':
     specifier: ^10.43.6
     version: 10.43.6
+  '@types/mapbox-gl':
+    specifier: ^2.7.19
+    version: 2.7.19
   mapbox-gl:
     specifier: ^3.1.2
     version: 3.1.2
