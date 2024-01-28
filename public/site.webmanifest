@@ -1,0 +1,22 @@
+{
+  "name": "Pastport",
+  "short_name": "Pastport",
+  "description": "Share your travels with the world.",
+  "start_url": "/",
+  "theme_color": "#020002",
+  "background_color": "#020002",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "developer": [
+    {
+      "name": "jgoon",
+      "url": "https://jgoon.com"
+    }
+  ]
+}

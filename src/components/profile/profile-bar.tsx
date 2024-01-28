@@ -7,7 +7,7 @@ type Props = {
 
 export const ProfileBar = ({ profileLayout = false }: Props) => {
   return (
-    <div className="absolute top-0 w-full p-8">
+    <div className="absolute top-0 z-10 w-full p-8">
       <Card className={cn("w-full", profileLayout ? "h-36" : "h-16")}>
         <CardHeader
           className={cn(
