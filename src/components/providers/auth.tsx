@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         redirectTo:
           `${
             process.env.NODE_ENV == "production"
-              ? "https://pastport.vercel.app"
+              ? "https://pastport.vercel.app/@"
               : "http://localhost:3000/@"
           }` + session?.user.email,
       },
