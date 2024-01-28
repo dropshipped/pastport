@@ -1,38 +1,85 @@
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import LogoLight from "~/assets/logos/passport-long-light.svg";
+import LogoDark from "~/assets/logos/passport-long-dark.svg";
+import { GlobeIcon } from "~/assets/icons";
+import { StickyScroll } from "~/components/home/stick-scroll";
+import Footer from "~/components/home/footer";
+import Callout from "~/components/home/callout";
+import { ContainerScroll } from "~/components/home/container-scroll";
 import Link from "next/link";
-import { api } from "~/utils/api";
+import { Button } from "@nextui-org/react";
 
 export default function Home() {
-  // const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const { resolvedTheme } = useTheme();
 
   return (
-    <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            this is <span className="text-[hsl(280,100%,70%)]">passport</span>
-          </h1>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="/@jgoon"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">@jgoon →</h3>
-              <div className="text-lg">
-                check out the most goated profile on pastport.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">@ibrahimeatspie →</h3>
-              <div className="text-lg">this kid is pretty mid.</div>
-            </Link>
-          </div>
+    <div className="flex h-full w-full flex-col gap-4">
+      <div className="flex w-full items-center justify-center p-2">
+        <Image
+          src={resolvedTheme === "light" ? LogoLight : LogoDark}
+          alt="logo"
+          width={172.47457632}
+          height={32}
+        />
+        <Link href="/login" className="absolute right-4">
+          <Button
+            color="default"
+            variant="faded"
+            size="sm"
+            className="bg-[#6DBE45]"
+          >
+            Login
+          </Button>
+        </Link>
+      </div>
+
+      <div className="relative w-full flex-1 overflow-scroll">
+        {/* hero */}
+        <div className="flex w-full flex-col overflow-hidden bg-gradient-to-b from-transparent to-foreground-100">
+          <ContainerScroll
+            titleComponent={
+              <>
+                <h1 className="text-4xl font-semibold text-black dark:text-white">
+                  Unleash the power of <br />
+                  <span className="mt-1 text-4xl font-bold leading-none md:text-[6rem]">
+                    Scroll Animations
+                  </span>
+                </h1>
+              </>
+            }
+          />
         </div>
-      </main>
-    </>
+
+        {/* block components */}
+        <div className="flex w-full justify-evenly bg-[#272628] p-16">
+          {Array(3)
+            .fill(0)
+            .map((_, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center gap-6 p-8 text-center"
+              >
+                <GlobeIcon className="h-8 w-8" />
+                <h1 className="text-2xl font-semibold">
+                  Share Your Adventures with Friends
+                </h1>
+                <p className="">
+                  Our website makes it easy to share your travel adventures with
+                  friends and family, allowing them to follow along and be
+                  inspired by your journeys.
+                </p>
+              </div>
+            ))}
+        </div>
+
+        {/* <div className="w-full"> */}
+        <StickyScroll />
+        {/* </div> */}
+
+        <Callout />
+        <Footer />
+      </div>
+    </div>
   );
 }
