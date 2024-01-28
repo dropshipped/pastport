@@ -5,9 +5,10 @@ import LogoLight from "~/assets/logos/passport-long-light.svg";
 import LogoDark from "~/assets/logos/passport-long-dark.svg";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { AppleIcon, GithubIcon, GoogleIcon } from "~/assets/icons";
+import { GithubIcon, GoogleIcon } from "~/assets/icons";
+import { useAuth } from "~/components/providers/auth";
 
-const DELAY = 2500;
+const DELAY = 4000;
 
 const IMAGES = [
   {
@@ -40,8 +41,10 @@ const CATCHPHRASES = [
 ];
 
 export default function LoginPage() {
+  const { handleOAuthLogin } = useAuth();
+
   const [index, setIndex] = useState(0);
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const interval = setInterval(
@@ -54,16 +57,12 @@ export default function LoginPage() {
   return (
     <>
       <div className="flex h-full w-full flex-col gap-4 p-4">
-        {/* bottom gradient in tailwind */}
-        {/* <div className="h-[60%] w-full overflow-clip rounded-md bg-gradient-to-b from-transparent to-white"></div> */}
         <div className="flex w-full items-center justify-center p-2">
           <Image
-            src={theme === "light" ? LogoLight : LogoDark}
+            src={resolvedTheme === "light" ? LogoLight : LogoDark}
             alt="logo"
             width={172.47457632}
             height={32}
-            // 5.38983051
-            // LogoDark
           />
         </div>
         <div className="relative h-[60%] w-full overflow-clip rounded-large bg-foreground-500">
@@ -86,6 +85,7 @@ export default function LoginPage() {
             size="lg"
             className="w-full"
             startContent={<GithubIcon />}
+            onClick={() => handleOAuthLogin("github")}
           >
             Github
           </Button>
@@ -95,18 +95,22 @@ export default function LoginPage() {
             size="lg"
             className="w-full"
             startContent={<GoogleIcon />}
+            onClick={() => handleOAuthLogin("google")}
           >
             Google
           </Button>
+          {/* TOO BROKE TO AFFORD APPLE DEVELOPER ACCOUNT
+              TODO: afford apple developer account
           <Button
             color="default"
             variant="bordered"
             size="lg"
             className="w-full"
             startContent={<AppleIcon />}
+            onClick={() => handleOAuthLogin("apple")}
           >
             Apple
-          </Button>
+          </Button> */}
         </div>
       </div>
     </>
@@ -137,7 +141,7 @@ function Fade({ index }: { index: number }) {
         >
           {CATCHPHRASES[index % CATCHPHRASES.length]}
         </div>
-        <img className="h-full w-full object-cover" src={IMAGES[index]!.url} />
+        <Image src={IMAGES[index]!.url} alt="Travel photos" fill />
       </motion.div>
     </AnimatePresence>
   );

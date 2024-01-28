@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const handleOAuthLogin = async (provider: "google" | "github") => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider,
     });
     if (error) console.log(error);
