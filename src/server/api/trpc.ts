@@ -6,10 +6,11 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import * as jwt from "jsonwebtoken";
 
 import { db } from "~/server/db";
 
@@ -34,8 +35,11 @@ type CreateContextOptions = Record<string, never>;
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
 const createInnerTRPCContext = (_opts: CreateContextOptions) => {
+  const { req, res } = _opts;
   return {
     db,
+    req,
+    res,
   };
 };
 
@@ -46,6 +50,8 @@ const createInnerTRPCContext = (_opts: CreateContextOptions) => {
  * @see https://trpc.io/docs/context
  */
 export const createTRPCContext = (_opts: CreateNextContextOptions) => {
+  const { req, res } = _opts;
+  return { req, res, db };
   return createInnerTRPCContext({});
 };
 
@@ -71,6 +77,39 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
   },
 });
 
+async function decodeAndVerifyJwtToken(jwtToken: string) {
+  try {
+    const JWT_SECRET = process.env.JWT_SECRET;
+    const decodedToken: jwt.JwtPayload = jwt.verify(
+      jwtToken,
+      JWT_SECRET!,
+    ) as jwt.JwtPayload;
+    console.log("Decoded token");
+    console.log(decodedToken);
+    console.log("JWT SECRET");
+    console.log(JWT_SECRET);
+    return decodedToken;
+  } catch (error) {
+    throw new Error("YOur token is expired");
+  }
+  // return "ASD";
+}
+
+const isAuthed = t.middleware(async ({ ctx, next }) => {
+  const { req, res } = ctx;
+  const token = req!.headers.authorization?.split(" ")[1];
+  if (!token) throw new TRPCError({ code: "UNAUTHORIZED" });
+
+  const JWT_SECRET = process.env.JWT_SECRET;
+  const decodedToken: jwt.JwtPayload = await decodeAndVerifyJwtToken(token);
+
+  return next({
+    ctx: {
+      token: decodedToken,
+    },
+  });
+});
+
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
  *
@@ -92,4 +131,5 @@ export const createTRPCRouter = t.router;
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
+export const privateProcedure = t.procedure.use(isAuthed);
 export const publicProcedure = t.procedure;
