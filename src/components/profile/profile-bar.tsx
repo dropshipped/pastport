@@ -8,11 +8,11 @@ type Props = {
 export const ProfileBar = ({ profileLayout = false }: Props) => {
   return (
     <div className="absolute top-0 w-full p-8">
-      <Card className={cn("w-full", profileLayout ? "h-32" : "h-16")}>
+      <Card className={cn("w-full", profileLayout ? "h-36" : "h-16")}>
         <CardHeader
           className={cn(
-            "flex justify-between",
-            profileLayout && "flex-col gap-2",
+            "flex h-full justify-between",
+            profileLayout && "flex-col items-center gap-2 pt-5",
           )}
         >
           <div
@@ -39,7 +39,7 @@ export const ProfileBar = ({ profileLayout = false }: Props) => {
           <div
             className={cn(
               "flex h-full items-end justify-center text-2xs text-foreground-400",
-              profileLayout ? "flex-row gap-2" : "flex-col",
+              profileLayout ? "flex-row gap-2" : "flex-col gap-1",
             )}
           >
             <div className="flex gap-2">
