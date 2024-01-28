@@ -59,6 +59,15 @@ const initialTrips = [
     date: "Jul 4, 2023",
   },
   {
+    title: "Netherlands",
+    latitude: 52.132633,
+    longitude: 5.291266,
+    countryCode: "NLD",
+    imageUrl:
+      "https://plus.unsplash.com/premium_photo-1680028256635-17e7f3ebbb23?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    date: "Jul 1, 2023",
+  },
+  {
     title: "Yosemite",
     latitude: 37.8651,
     longitude: 119.5383,
@@ -90,7 +99,15 @@ const initialTrips = [
 const photos = [
   ...initialTrips.map((trip) => trip.imageUrl),
   ...initialTrips.map((trip) => trip.imageUrl),
-  ...initialTrips.map((trip) => trip.imageUrl),
+  {
+    title: "Netherlands",
+    latitude: 52.132633,
+    longitude: 5.291266,
+    countryCode: "NLD",
+    imageUrl:
+      "https://plus.unsplash.com/premium_photo-1680028256635-17e7f3ebbb23?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    date: "Jul 1, 2023",
+  },
 ];
 
 export const getServerSideProps = (async ({ params, query, res }) => {
