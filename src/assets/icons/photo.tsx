@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-export const ChevronIcon = (props: SVGProps<SVGSVGElement>) => (
+export const PhotosIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -20,9 +20,7 @@ export const ChevronIcon = (props: SVGProps<SVGSVGElement>) => (
   >
     {/* <path stroke="none" d="M0 0h24v24H0z" fill="none"></path> */}
     {/* <path d="M4 11l8 3l8 -3"></path> */}
-    <path
-      fillRule="evenodd"
-      d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"
-    />
+    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+    <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z" />
   </svg>
 );

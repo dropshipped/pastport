@@ -1,5 +1,5 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { MapView } from "~/components/mapview";
+import { MapView } from "~/components/mapview/map";
 import { ProfileBar } from "~/components/profile/profile-bar";
 import { ProfileProvider } from "~/components/profile/profile-provider";
 import { TimelineSlider } from "~/components/profile/timeline-slider";
