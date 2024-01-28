@@ -3,25 +3,25 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   type ReactNode,
   type SetStateAction,
   type Dispatch,
-  useEffect,
 } from "react";
-
-type ProfileProviderType = {
-  session: Session | null;
-  setSession: Dispatch<SetStateAction<Session | null>>;
-  logout: () => Promise<void>;
-  signInWithGitHub: () => Promise<void>;
-};
-
-const ProfileContext = createContext<ProfileProviderType | null>(null);
 
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
   process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "",
 );
+
+type ProfileProviderType = {
+  session: Session | null;
+  setSession: Dispatch<SetStateAction<Session | null>>;
+  handleLogout: () => Promise<void>;
+  handleOAuthLogin: (provider: "google" | "github") => Promise<void>;
+};
+
+const ProfileContext = createContext<ProfileProviderType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
@@ -44,27 +44,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  async function logout() {
+  const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) console.error(error);
-  }
+  };
 
-  async function signInWithGitHub() {
+  const handleOAuthLogin = async (provider: "google" | "github") => {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: "http://localhost:3000/register/",
-      },
+      provider,
     });
-    console.log(data);
     if (error) console.log(error);
-  }
+  };
 
   const value: ProfileProviderType = {
     session,
     setSession,
-    logout,
-    signInWithGitHub,
+    handleLogout,
+    handleOAuthLogin,
   };
 
   return (
