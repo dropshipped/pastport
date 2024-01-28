@@ -19,7 +19,9 @@ const Layout = ({ children }: Props) => {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         {/* <meta name="msapplication-TileColor" content="#ffffff" /> */}
 
-        <meta name="apple-mobile-web-app-status-bar-style" content="#c40000" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        {/* <meta name="apple-mobile-web-app-status-bar-style" content="#c40000" /> */}
+
         <meta name="color-scheme" content="dark" />
         <meta
           name="theme-color"
