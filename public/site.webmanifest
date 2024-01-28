@@ -3,8 +3,7 @@
   "short_name": "Pastport",
   "description": "Share your travels with the world.",
   "start_url": "/",
-  "theme_color": "#6DBE45",
-  "background_color": "#020002",
+
   "display": "standalone",
   "icons": [
     {

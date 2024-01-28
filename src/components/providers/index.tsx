@@ -1,6 +1,6 @@
 import { NextUIProvider } from "@nextui-org/react";
 import type { ReactNode } from "react";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "~/components/providers/theme";
 import { AuthProvider } from "~/components/providers/auth";
 
 type Props = {

@@ -18,7 +18,6 @@ const Layout = ({ children }: Props) => {
         <meta name="apple-mobile-web-app-title" content="Pastport" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="theme-color" content="#ffffff" />
 
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="icon" href="/favicon.ico" />
