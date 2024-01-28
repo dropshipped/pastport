@@ -2,7 +2,23 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
+const User = z.object({
+  id: z.string(),
+  joinDate: z.date(),
+  homeTown: z.string(),
+  name: z.string(),
+  username: z.string(),
+  email: z.string(),
+  jwtToken: z.string()
+});
+
+export type UserType = z.infer<typeof User>;
+
 export const postRouter = createTRPCRouter({
+  // createUser: publicProcedure
+  createUser: publicProcedure.input(User).mutation(() => {
+
+  }),
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
     .query(({ input }) => {
