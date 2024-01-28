@@ -3,37 +3,22 @@
  * @see https://v0.dev/t/Vrn2uEHO0ir
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import {
-  CardTitle,
-  CardDescription,
-  CardHeader,
-  CardContent,
-  Card,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { CardHeader, CardBody, Card, Input } from "@nextui-org/react";
 
-export default function Component() {
+export function UploadPhotoButton() {
   return (
-    <Card className="w-full max-w-md border-2 border-dashed border-gray-300 p-10 shadow-sm dark:border-gray-700">
-      <CardHeader className="flex flex-col items-center justify-center space-y-4">
-        <UploadIcon className="h-12 w-12 text-gray-500 dark:text-gray-400" />
-        <CardTitle className="text-lg text-gray-500 dark:text-gray-400">
-          Drag & Drop your files here
-        </CardTitle>
-        <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
-          - OR -
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col items-center justify-center space-y-4">
-        <Label
-          className="cursor-pointer text-blue-500 underline dark:text-blue-400"
-          htmlFor="file-upload"
-        >
-          Select files from your device
-        </Label>
-        <Input className="hidden" id="file-upload" type="file" />
-      </CardContent>
+    <Card className="flex w-full max-w-md items-center justify-center border-2 border-dashed border-gray-300 p-10 shadow-sm dark:border-gray-700">
+      <label className="cursor-pointer" htmlFor="file-upload">
+        <CardBody className="flex flex-col items-center justify-center space-y-4">
+          <CardHeader className="flex flex-col items-center justify-center space-y-4">
+            <UploadIcon className="h-12 w-12 text-gray-500 dark:text-gray-400" />
+            <h1 className="dark:text-gray flex items-center text-center text-lg text-gray-500 no-underline">
+              Tap Here to Upload a Photo
+            </h1>
+          </CardHeader>
+          <Input className="hidden" id="file-upload" type="file" />
+        </CardBody>
+      </label>
     </Card>
   );
 }
