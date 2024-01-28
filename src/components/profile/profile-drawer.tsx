@@ -20,7 +20,10 @@ const ProfileDrawer = () => {
       )}
     >
       <motion.div
-        className={cn("absolute inset-y-0 left-0 w-full bg-foreground-100")}
+        className={cn(
+          "absolute inset-y-0 left-0 w-full",
+          "bg-[hsl(var(--nextui-default-100)/.5)] backdrop-blur-sm",
+        )}
         onAnimationComplete={() => !showProfile && setHideProfile(true)}
         variants={{
           open: (height = 1000) => ({
