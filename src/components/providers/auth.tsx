@@ -51,7 +51,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const handleOAuthLogin = async (provider: "google" | "github") => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider,
+      provider,options: {
+        redirectTo: "http://localhost:3000/@"+session?.user.email,
+      },
     });
     if (error) console.log(error);
   };
