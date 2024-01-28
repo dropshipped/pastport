@@ -103,9 +103,7 @@ export const StickyScroll = ({
           background: linearGradients[activeCard % linearGradients.length],
         }}
         className="sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md bg-white lg:block"
-      >
-        klasglksajgljl
-      </motion.div>
+      ></motion.div>
     </motion.div>
   );
 };
