@@ -19,12 +19,14 @@ export function TripMarker({ longitude, latitude, imageUrl }: Props) {
         <Image
           alt="Woman listing to music"
           className="aspect-square object-cover"
-          height={200}
+          height={100}
           src={imageUrl}
-          width={200}
+          width={100}
         />
         <CardFooter className="absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] justify-between overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10">
-          <p className="w-full text-tiny text-white/80"> Sep 5, 2023</p>
+          <p className="w-full text-center text-tiny text-white/80">
+            Sep 5, 2023
+          </p>
           {/* <Button
             // className="bg-black/20 text-tiny text-white"
             className="h-full w-full text-tiny text-white"
