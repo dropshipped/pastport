@@ -4,23 +4,19 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { CardHeader, CardBody, Card, Input } from "@nextui-org/react";
-import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "crypto";
 import { type ChangeEvent, useState } from "react";
+import { supabase } from "~/components/providers/auth";
 
 export function UploadPhotoButton() {
   const [image, setImage] = useState<File | null>(null);
-
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-    process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "",
-  );
 
   const onSubmit = async () => {
     if (image === null) {
       console.log("null image");
       return;
     }
+    
     const { data, error } = await supabase.storage
       .from("avatars")
       .upload(`public/${randomUUID()}.png`, image, {
