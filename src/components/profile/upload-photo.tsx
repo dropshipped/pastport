@@ -4,8 +4,10 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { CardHeader, CardBody, Card, Input } from "@nextui-org/react";
+import { ChangeEvent, useState } from "react";
 
 export function UploadPhotoButton() {
+  const [image, setImage] = useState<File | null>(null);
   return (
     <Card className="flex w-full max-w-md items-center justify-center border-2 border-dashed border-gray-300 p-10 shadow-sm dark:border-gray-700">
       <label className="cursor-pointer" htmlFor="file-upload">
@@ -16,7 +18,17 @@ export function UploadPhotoButton() {
               Tap Here to Upload a Photo
             </h1>
           </CardHeader>
-          <Input className="hidden" id="file-upload" type="file" />
+          <Input
+            className="hidden"
+            id="file-upload"
+            type="file"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              if (e.target.files && e.target.files.length > 0) {
+                const image = e.target.files[0]; // Safely access the file using TypeScript
+                setImage(image); // Set the file state
+              }
+            }}
+          />
         </CardBody>
       </label>
     </Card>
