@@ -55,14 +55,7 @@ export const TimelineSlider = ({}: Props) => {
                 ></div>
               ))}
           </div>
-          {/* <div
-          ref={rectRef}
-          style={{
-            left: `${position}%`,
-            transform: `translateX(-${position}%)`,
-          }}
-          className="absolute h-12 w-12 rounded-md border border-solid border-foreground-400 bg-foreground-800"
-        ></div> */}
+
           <motion.div
             className="left-[calc(50% - 24px)] absolute h-12 w-12 overflow-clip rounded-md border-2 border-solid border-white bg-foreground-800"
             drag="x"
@@ -70,8 +63,8 @@ export const TimelineSlider = ({}: Props) => {
               left: -128,
               right: 128,
             }}
+            // stiffness={100}
           >
-            {/* eslint-disable-next-line */}
             <img
               src={drake}
               className="h-full w-full object-cover"
