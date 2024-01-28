@@ -11,8 +11,8 @@ const ProfileContent = () => {
 
       <ScrollShadow
         className="h-full w-full pt-[190px]"
-        size={300}
-        offset={-200}
+        size={180}
+        // offset={-200}
       >
         {Array(10)
           .fill(0)
