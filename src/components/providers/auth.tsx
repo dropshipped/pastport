@@ -1,5 +1,4 @@
 import { createClient, type Session } from "@supabase/supabase-js";
-import { useRouter } from "next/router";
 import {
   createContext,
   useContext,
