@@ -37,6 +37,7 @@ const config = {
         patterns: [".*"],
       },
     ],
+    "@next/next/no-img-element": "off",
   },
 };
 

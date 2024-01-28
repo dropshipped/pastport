@@ -18,3 +18,13 @@ model Post {
 
     @@index([name])
 }
+
+model User {
+    id String @id @unique
+    joinDate DateTime @default(now())
+    homeTown String
+    name String
+    username String
+    email String
+
+}

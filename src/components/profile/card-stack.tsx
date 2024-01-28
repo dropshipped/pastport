@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 // @ts-ignore no type def exists.
 import move from "lodash-move";
+import Image from "next/image";
 import { useState } from "react";
 
 const CARDS = ["#266678", "#cb7c7a", " #36a18b", "#cda35f", "#747474"];
@@ -28,7 +29,6 @@ export const CardStack = () => {
               style={{
                 top: `${1 * (cards.length - index) * (cards.length - index)}px`,
                 cursor: "grab",
-                // cursor: canDrag ? "grab" : "auto",
               }}
               animate={{
                 left: index * -CARD_OFFSET,
@@ -44,12 +44,13 @@ export const CardStack = () => {
               onDragEnd={() => moveToEnd(index)}
               onClick={() => moveToEnd(index)}
             >
-              <img
-                className="h-full object-cover"
+              <Image
                 draggable={false}
                 src={
-                  "https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
+                  "https://images.unsplash.com/photo-1534313314376-a72289b6181e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 }
+                alt="your uploaded photo"
+                fill
               />
             </motion.li>
           );

@@ -83,7 +83,7 @@ export const TimelineSlider = ({}: Props) => {
         <button
           className={cn(
             "absolute left-1/2 z-20 -translate-x-1/2 px-2 transition-[bottom]",
-            showProfile ? "bottom-0  rotate-180" : "bottom-24",
+            showProfile ? "bottom-4 rotate-180" : "bottom-24",
           )}
           onClick={toggleProfile}
         >

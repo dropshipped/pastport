@@ -1,6 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { MapView } from "~/components/mapview";
-import { ProfileBar } from "~/components/profile/profile-bar";
+import { ProfileBarWrapper } from "~/components/profile/profile-bar-wrapper";
 import ProfileDrawer from "~/components/profile/profile-drawer";
 import { ProfileProvider } from "~/components/profile/profile-provider";
 import { TimelineSlider } from "~/components/profile/timeline-slider";
@@ -26,7 +26,7 @@ const ProfilePage = ({
   return (
     <ProfileProvider initialState={{ showProfile, username }}>
       <MapView />
-      <ProfileBar />
+      <ProfileBarWrapper />
       <TimelineSlider />
       <ProfileDrawer />
     </ProfileProvider>

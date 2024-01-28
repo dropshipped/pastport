@@ -1,8 +1,33 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, privateProcedure, publicProcedure } from "~/server/api/trpc";
+
+
+
+const User = z.object({
+  id: z.string(),
+  joinDate: z.date(),
+  homeTown: z.string(),
+  name: z.string(),
+  username: z.string(),
+  email: z.string(),
+  jwtToken: z.string()
+});
+
+export type UserType = z.infer<typeof User>;
 
 export const postRouter = createTRPCRouter({
+  // createUser: publicProcedure
+  createUser: privateProcedure.input(User).mutation(({ctx}) => {
+    const {sub} = ctx.token
+    if (!sub) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+    return {
+      secret: 'sauce',
+    };
+  }),
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
     .query(({ input }) => {
@@ -30,3 +55,4 @@ export const postRouter = createTRPCRouter({
     });
   }),
 });
+

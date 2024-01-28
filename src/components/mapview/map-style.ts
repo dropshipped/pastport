@@ -61,8 +61,8 @@ export const countriesLayer: FillLayer = {
   "source-layer": "country_boundaries",
   type: "fill",
   paint: {
-    "fill-outline-color": "rgba(60, 192, 133, 0.5)",
-    "fill-color": "rgba(60, 192, 133, 0.25)",
+    "fill-outline-color": "rgba(109, 190, 69, 0.5)",
+    "fill-color": "rgba(109, 190, 69, 0.25)",
     // "fill-opacity": 0.75,
   },
 };

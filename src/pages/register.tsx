@@ -1,42 +1,52 @@
-import { useState, useEffect } from "react";
-import type { Session } from "@supabase/supabase-js";
-import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { Button } from "@nextui-org/react";
+import { useRouter } from "next/router";
+import { supabase, useAuth } from "~/components/providers/auth";
+import { useEffect } from "react";
 
 type Props = {};
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-  process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "",
-);
-
 const RegisterPage = ({}: Props) => {
-  const [session, setSession] = useState<Session | null>(null);
+  const router = useRouter();
+
+  const { session, logout, signInWithGitHub } = useAuth();
 
   useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(({ data: { session } }) => {
-        setSession(session);
-      })
-      .catch((error) => console.error(error));
+    if (session) {
+      console.log(session);
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+      // router.push('/')
+    }
+  }, [session]);
 
   return (
     <div className="h-full w-full">
       {!session ? (
-        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+        [
+          <>
+            <div>Not logged in</div>
+            <Button onClick={signInWithGitHub}>Login</Button>
+
+            <Button onClick={logout}>Logout</Button>
+
+            <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+          </>,
+        ]
       ) : (
-        <div>Logged in!</div>
+        <>
+          <div>Logged in!</div>
+          <Button
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            asdas
+          </Button>
+          <Button onClick={signInWithGitHub}>Login</Button>
+
+          <Button onClick={logout}>Logout</Button>
+        </>
       )}
     </div>
   );
