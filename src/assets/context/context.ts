@@ -6,10 +6,10 @@ import * as jwt from 'jsonwebtoken';
 async function decodeAndVerifyJwtToken(jwtToken:string){
   const JWT_SECRET = process.env.JWT_SECRET;
   const decodedToken = jwt.verify(jwtToken, JWT_SECRET!);
-  console.log("Decoded token")
-  console.log(decodedToken)
-  console.log("JWT SECRET")
-  console.log(JWT_SECRET)
+  // console.log("Decoded token")
+  // console.log(decodedToken)
+  // console.log("JWT SECRET")
+  // console.log(JWT_SECRET)
   return decodedToken;
     // return "ASD";
 }

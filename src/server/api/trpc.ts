@@ -10,9 +10,9 @@ import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import * as jwt from "jsonwebtoken";
 
 import { db } from "~/server/db";
+import * as jwt from "jsonwebtoken";
 
 /**
  * 1. CONTEXT
@@ -84,10 +84,10 @@ async function decodeAndVerifyJwtToken(jwtToken: string) {
       jwtToken,
       JWT_SECRET!,
     ) as jwt.JwtPayload;
-    console.log("Decoded token");
-    console.log(decodedToken);
-    console.log("JWT SECRET");
-    console.log(JWT_SECRET);
+    // console.log("Decoded token");
+    // console.log(decodedToken);
+    // console.log("JWT SECRET");
+    // console.log(JWT_SECRET);
     return decodedToken;
   } catch (error) {
     throw new Error("YOur token is expired");
@@ -96,11 +96,12 @@ async function decodeAndVerifyJwtToken(jwtToken: string) {
 }
 
 const isAuthed = t.middleware(async ({ ctx, next }) => {
+  // console.log("CONTEXT")
   const { req, res } = ctx;
+  // console.log(req?.headers)
   const token = req!.headers.authorization?.split(" ")[1];
   if (!token) throw new TRPCError({ code: "UNAUTHORIZED" });
-
-  const JWT_SECRET = process.env.JWT_SECRET;
+  console.log("NOT FAILED");
   const decodedToken: jwt.JwtPayload = await decodeAndVerifyJwtToken(token);
 
   return next({
