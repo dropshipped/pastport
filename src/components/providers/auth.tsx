@@ -54,11 +54,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       provider,
       options: {
         redirectTo:
-          `${
-            process.env.NODE_ENV == "production"
-              ? "https://pastport.vercel.app/@"
-              : "http://localhost:3000/@"
-          }` + session?.user.email,
+          // `${
+
+          //   // process.env.NODE_ENV == "production"
+          //   //   ? "https://pastport.vercel.app/@"
+          //   //   : "http://localhost:3000/@"
+          // }` session?.user.email
+          "https://pastport.vercel.app/@" + "zoeylang",
       },
     });
     if (error) console.log(error);
