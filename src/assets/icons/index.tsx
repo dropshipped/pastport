@@ -5,6 +5,7 @@ import { BuildingsIcon } from "~/assets/icons/building";
 import { GithubIcon } from "~/assets/icons/github";
 import { GoogleIcon } from "~/assets/icons/google";
 import { AppleIcon } from "~/assets/icons/apple";
+import { PencilIcon } from "~/assets/icons/pencil";
 
 export {
   ChevronIcon,
@@ -14,4 +15,5 @@ export {
   GithubIcon,
   GoogleIcon,
   AppleIcon,
+  PencilIcon,
 };
