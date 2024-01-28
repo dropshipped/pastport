@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { GithubIcon, GoogleIcon } from "~/assets/icons";
 import { useAuth } from "~/components/providers/auth";
+import Link from "next/link";
 
 const DELAY = 4000;
 
@@ -58,12 +59,14 @@ export default function LoginPage() {
     <>
       <div className="flex h-full w-full flex-col gap-4 p-4">
         <div className="flex w-full items-center justify-center p-2">
-          <Image
-            src={resolvedTheme === "light" ? LogoLight : LogoDark}
-            alt="logo"
-            width={172.47457632}
-            height={32}
-          />
+          <Link href="/">
+            <Image
+              src={resolvedTheme === "light" ? LogoLight : LogoDark}
+              alt="logo"
+              width={172.47457632}
+              height={32}
+            />
+          </Link>
         </div>
         <div className="relative h-[60%] w-full overflow-clip rounded-large bg-foreground-500">
           <Fade index={index} />
