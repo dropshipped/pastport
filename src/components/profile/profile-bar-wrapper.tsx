@@ -9,7 +9,7 @@ export const ProfileBarWrapper = () => {
     <div
       className={cn(
         "absolute top-0 w-full transition-[top]",
-        showProfile && "-top-24",
+        showProfile && "-top-[92px]",
       )}
     >
       <ProfileBar />
