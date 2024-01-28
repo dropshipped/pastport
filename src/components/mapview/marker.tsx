@@ -1,5 +1,5 @@
 import { Marker } from "react-map-gl";
-import { Button, Card, CardFooter, Image } from "@nextui-org/react";
+import { Card, CardFooter, Image } from "@nextui-org/react";
 
 type Props = {
   longitude: number;
@@ -37,14 +37,6 @@ export function TripMarker({ longitude, latitude, imageUrl }: Props) {
           ></Button> */}
         </CardFooter>
       </Card>
-      {/* <div className="align-center relative flex items-center rounded-full bg-foreground-100 p-1">
-        <Image
-          alt="trip"
-          className="aspect-square h-10 rounded-full object-cover"
-          src={imageUrl}
-        ></Image>
-        <div className="absolute -bottom-1 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 transform bg-foreground-100"></div>
-      </div> */}
     </Marker>
   );
 }

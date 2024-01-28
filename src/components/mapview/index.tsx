@@ -1,29 +1,25 @@
-import Map, {
-  Layer,
-  type MapLayerMouseEvent,
-  Source,
-  Marker,
-} from "react-map-gl";
-import { Image } from "@nextui-org/react";
+import Map, { Layer, Source } from "react-map-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { countriesLayer } from "./map-style";
-import { useCallback, useMemo, useState } from "react";
+// eslint-disable-next-line no-restricted-imports
 import { TripMarker } from "./marker";
+import { useMemo } from "react";
+// eslint-disable-next-line no-restricted-imports
+import { countriesLayer } from "./map-style";
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
 type Props = {}; // eslint-disable-line
 
-interface HoverInfo {
-  longitude: number;
-  latitude: number;
-  countyName: string;
-}
+// interface HoverInfo {
+//   longitude: number;
+//   latitude: number;
+//   countyName: string;
+// }
 
 export const MapView = ({}: Props) => {
-  const [hoverInfo, setHoverInfo] = useState<HoverInfo | null>(null);
+  // const [hoverInfo, setHoverInfo] = useState<HoverInfo | null>(null);
 
   // const onHover = useCallback((event: MapLayerMouseEvent) => {
   //   const county = event.features && event.features[0];
