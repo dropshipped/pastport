@@ -69,7 +69,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex w-full items-center justify-center">
+        <div className="flex w-full items-center justify-center p-4">
           <Link href="/@zoeylang" className="">
             <Card className="flex flex-col items-center gap-4 p-8 text-2xl font-semibold sm:px-16">
               <div className="flex items-center gap-4">
