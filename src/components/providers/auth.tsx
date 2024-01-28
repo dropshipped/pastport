@@ -1,4 +1,5 @@
 import { createClient, type Session } from "@supabase/supabase-js";
+import { useRouter } from "next/router";
 import {
   createContext,
   useContext,
@@ -14,17 +15,16 @@ type ProfileProviderType = {
   setSession: Dispatch<SetStateAction<Session | null>>;
   logout: () => Promise<void>;
   signInWithGitHub: () => Promise<void>;
-  supabase: any;
 };
 
 const ProfileContext = createContext<ProfileProviderType | null>(null);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-    process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "",
-  );
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
+  process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "",
+);
 
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
@@ -38,12 +38,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+    } = supabase.auth.onAuthStateChange((_event, _session) => {
+      setSession(_session);
     });
 
     return () => subscription.unsubscribe();
-  }, []); // eslint-disable-line
+  }, []);
 
   async function logout() {
     const { error } = await supabase.auth.signOut();
@@ -66,7 +66,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSession,
     logout,
     signInWithGitHub,
-    supabase,
   };
 
   return (

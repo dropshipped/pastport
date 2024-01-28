@@ -1,18 +1,16 @@
-import { useState, useEffect } from "react";
-import type { Session } from "@supabase/supabase-js";
-import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import { useAuth } from "~/components/providers/auth";
+import { supabase, useAuth } from "~/components/providers/auth";
+import { useEffect } from "react";
 
 type Props = {};
 
 const RegisterPage = ({}: Props) => {
   const router = useRouter();
 
-  const { session, logout, signInWithGitHub, supabase } = useAuth();
+  const { session, logout, signInWithGitHub } = useAuth();
 
   useEffect(() => {
     if (session) {
