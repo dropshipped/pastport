@@ -5,9 +5,10 @@ type Props = {
   longitude: number;
   latitude: number;
   imageUrl: string;
+  date: string;
 };
 
-export function TripMarker({ longitude, latitude, imageUrl }: Props) {
+export function TripMarker({ longitude, latitude, imageUrl, date }: Props) {
   return (
     <Marker
       longitude={longitude}
@@ -24,17 +25,7 @@ export function TripMarker({ longitude, latitude, imageUrl }: Props) {
           width={100}
         />
         <CardFooter className="absolute bottom-1 z-10 ml-1 w-[calc(100%_-_8px)] justify-between overflow-hidden rounded-large border-1 border-white/20 py-1 shadow-small before:rounded-xl before:bg-white/10">
-          <p className="w-full text-center text-tiny text-white/80">
-            Sep 5, 2023
-          </p>
-          {/* <Button
-            // className="bg-black/20 text-tiny text-white"
-            className="h-full w-full text-tiny text-white"
-            variant="flat"
-            color="default"
-            radius="lg"
-            size="sm"
-          ></Button> */}
+          <p className="w-full text-center text-tiny text-white/80">{date}</p>
         </CardFooter>
       </Card>
     </Marker>
