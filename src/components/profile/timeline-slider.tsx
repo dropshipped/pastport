@@ -1,10 +1,10 @@
 import { Card, cn } from "@nextui-org/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronIcon } from "~/assets/icons";
-import { useRouter } from "next/router";
 import { useProfile } from "~/components/profile/profile-provider";
 import { useDimensions } from "~/utils";
+import { useRouter } from "next/router";
 
 const drake =
   "https://us-tuna-sounds-images.voicemod.net/b76b232c-c50d-4704-912f-9991eb0e5513-1669755931690.jpg";
@@ -12,25 +12,22 @@ const drake =
 type Props = {}; // eslint-disable-line
 
 export const TimelineSlider = ({}: Props) => {
-  // const router = useRouter();
-  // const { username, profile } = router.query;
-  // const profileView = profile !== undefined;
-  const { showProfile, setShowProfile } = useProfile();
-
-  // "query": {
-  //   "profile": "",
-  //   "username": "asflk-register"
-  // },
+  const router = useRouter();
+  const { showProfile, setShowProfile, username } = useProfile();
 
   const toggleProfile = async () => {
+    console.log("LOL", { showProfile, hideProfile });
+    if (!showProfile) setHideProfile(false);
     setShowProfile((p) => !p);
-    // profileView
-    //   ? await router.push(`${username as string}`)
-    //   : await router.push(`${username as string}?profile`);
+    showProfile
+      ? await router.push(`${username}`)
+      : await router.push(`${username}?profile`);
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
   const { height } = useDimensions(containerRef);
+
+  const [hideProfile, setHideProfile] = useState<boolean>(!showProfile);
 
   return (
     <>
@@ -39,7 +36,6 @@ export const TimelineSlider = ({}: Props) => {
           className={cn(
             "relative z-20 flex h-20 w-full items-center justify-center rounded-xl p-4 transition-transform",
             showProfile ? "translate-y-40" : "translate-y-0",
-            // showProfile ? "bg-foreground-100" : "bg-foreground-800",
           )}
         >
           <div
@@ -90,48 +86,51 @@ export const TimelineSlider = ({}: Props) => {
           </motion.div>
         </Card>
 
+        <button
+          className={cn(
+            "absolute left-1/2 z-20 -translate-x-1/2 px-2 transition-[bottom]",
+            showProfile ? "bottom-0  rotate-180" : "bottom-24",
+          )}
+          onClick={toggleProfile}
+        >
+          <ChevronIcon className="h-16 w-16" />
+        </button>
+
         {/* <pre>{JSON.stringify(router, null, 2)}</pre> */}
         {/* {JSON.stringify(profileView)}
       <button onClick={toggleProfile}>nav</button> */}
 
         {/* profile component */}
       </div>
-      {/* {profileView && ( */}
-      <motion.nav
+
+      <motion.div
         initial={false}
         animate={showProfile ? "open" : "closed"}
         custom={height}
         ref={containerRef}
         className={cn(
-          // "absolute top-0 z-10 h-full w-full",
-          "absolute inset-y-0 left-0 w-full",
-          // "bg-red-300"
+          "absolute inset-y-0 left-0 w-full transition-[opacity]",
+          hideProfile && "invisible opacity-0",
         )}
       >
-        <button
-          className={cn(
-            "absolute left-1/2 z-20 -translate-x-1/2 px-2 transition-[bottom]",
-            showProfile ? "bottom-0" : "bottom-24 rotate-180",
-          )}
-          onClick={toggleProfile}
-        >
-          <ChevronIcon className="h-12 w-12" />
-        </button>
         <motion.div
-          className="absolute inset-y-0 left-0 w-full bg-foreground-100"
+          className={cn("absolute inset-y-0 left-0 w-full bg-foreground-100")}
+          onAnimationComplete={() => {
+            !showProfile && setHideProfile(true);
+          }}
           variants={{
             open: (height = 1000) => ({
-              clipPath: `circle(${height}px at 50% calc(100% - 48px))`,
+              clipPath: `circle(${height - 100}px at 50% calc(100% - 48px))`,
               transition: {
                 type: "spring",
                 // stiffness: 40,
-                // restDelta: 0,
+                // restDelta: 10,
               },
             }),
             closed: {
               clipPath: "circle(30px at 50% calc(100% - 48px))",
               transition: {
-                delay: 0.5,
+                // delay: 0.5,
                 type: "spring",
                 stiffness: 400,
                 damping: 40,
@@ -139,9 +138,7 @@ export const TimelineSlider = ({}: Props) => {
             },
           }}
         ></motion.div>
-      </motion.nav>
-
-      {/* )} */}
+      </motion.div>
     </>
   );
 };
