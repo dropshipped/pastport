@@ -68,7 +68,7 @@ export const TimelineSlider = ({ photos }: { photos: string[] }) => {
           className="absolute h-12 w-12 rounded-md border border-solid border-foreground-400 bg-foreground-800"
         ></div> */}
           <motion.div
-            className="left-[calc(50% - 24px)] absolute h-12 w-12 overflow-clip rounded-md border-2 border-solid border-white bg-foreground-800"
+            className="left-[calc(50% - 24px)] absolute z-50 h-12 w-12 overflow-clip rounded-md border-2 border-solid border-white bg-foreground-800"
             drag="x"
             dragConstraints={{
               left: -128,
@@ -78,7 +78,7 @@ export const TimelineSlider = ({ photos }: { photos: string[] }) => {
             {/* eslint-disable-next-line */}
             <img
               src={drake}
-              className="h-full w-full object-cover"
+              className=" h-full w-full object-cover"
               draggable={false}
             />
           </motion.div>
@@ -86,12 +86,12 @@ export const TimelineSlider = ({ photos }: { photos: string[] }) => {
 
         <button
           className={cn(
-            "absolute left-1/2 z-20 -translate-x-1/2 px-2 transition-[bottom]",
+            "absolute left-1/2 z-10 -translate-x-1/2 px-2 transition-[bottom]",
             showProfile ? "bottom-4 rotate-180" : "bottom-24",
           )}
           onClick={toggleProfile}
         >
-          <ChevronIcon className="h-16 w-16" />
+          <ChevronIcon className="z-10 h-16 w-16" />
         </button>
 
         {/* <pre>{JSON.stringify(router, null, 2)}</pre> */}

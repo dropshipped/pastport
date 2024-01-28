@@ -87,7 +87,11 @@ const initialTrips = [
   },
 ];
 
-const photos = [...initialTrips.map((trip) => trip.imageUrl), "https://source.unsplash.com/random"];
+const photos = [
+  ...initialTrips.map((trip) => trip.imageUrl),
+  ...initialTrips.map((trip) => trip.imageUrl),
+  ...initialTrips.map((trip) => trip.imageUrl),
+];
 
 export const getServerSideProps = (async ({ params, query, res }) => {
   const username = String(params?.username ?? "");
