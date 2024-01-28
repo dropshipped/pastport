@@ -15,6 +15,9 @@ export default {
           ...fontFamily.sans,
         ],
       },
+      fontSize: {
+        "2xs": ".65rem",
+      },
     },
   },
   darkMode: "class",
