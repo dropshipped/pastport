@@ -1,6 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { MapView } from "~/components/mapview";
 import { ProfileBar } from "~/components/profile/profile-bar";
+import ProfileDrawer from "~/components/profile/profile-drawer";
 import { ProfileProvider } from "~/components/profile/profile-provider";
 import { TimelineSlider } from "~/components/profile/timeline-slider";
 import { redirect } from "~/utils/redirect";
@@ -27,6 +28,7 @@ const ProfilePage = ({
       <MapView />
       <ProfileBar />
       <TimelineSlider />
+      <ProfileDrawer />
     </ProfileProvider>
   );
 };

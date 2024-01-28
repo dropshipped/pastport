@@ -1,9 +1,7 @@
 import { Card, cn } from "@nextui-org/react";
-import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronIcon } from "~/assets/icons";
 import { useProfile } from "~/components/profile/profile-provider";
-import { useDimensions } from "~/utils";
 import { useRouter } from "next/router";
 
 const drake =
@@ -13,7 +11,8 @@ type Props = {}; // eslint-disable-line
 
 export const TimelineSlider = ({}: Props) => {
   const router = useRouter();
-  const { showProfile, setShowProfile, username } = useProfile();
+  const { showProfile, setShowProfile, username, hideProfile, setHideProfile } =
+    useProfile();
 
   const toggleProfile = async () => {
     console.log("LOL", { showProfile, hideProfile });
@@ -23,11 +22,6 @@ export const TimelineSlider = ({}: Props) => {
       ? await router.push(`${username}`)
       : await router.push(`${username}?profile`);
   };
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { height } = useDimensions(containerRef);
-
-  const [hideProfile, setHideProfile] = useState<boolean>(!showProfile);
 
   return (
     <>
@@ -102,43 +96,6 @@ export const TimelineSlider = ({}: Props) => {
 
         {/* profile component */}
       </div>
-
-      <motion.div
-        initial={false}
-        animate={showProfile ? "open" : "closed"}
-        custom={height}
-        ref={containerRef}
-        className={cn(
-          "absolute inset-y-0 left-0 w-full transition-[opacity]",
-          hideProfile && "invisible opacity-0",
-        )}
-      >
-        <motion.div
-          className={cn("absolute inset-y-0 left-0 w-full bg-foreground-100")}
-          onAnimationComplete={() => {
-            !showProfile && setHideProfile(true);
-          }}
-          variants={{
-            open: (height = 1000) => ({
-              clipPath: `circle(${height - 100}px at 50% calc(100% - 48px))`,
-              transition: {
-                type: "spring",
-                // stiffness: 40,
-                // restDelta: 10,
-              },
-            }),
-            closed: {
-              clipPath: "circle(30px at 50% calc(100% - 48px))",
-              transition: {
-                // delay: 0.5,
-                type: "spring",
-                stiffness: 400,
-                damping: 40,
-              },
-            },
-          }}
-        ></motion.div>
-      </motion.div>
     </>
   );
 };
