@@ -1,15 +1,9 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/Vrn2uEHO0ir
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { CardHeader, CardBody, Card, Spinner } from "@nextui-org/react";
 // import { randomUUID } from "crypto";
 import { type ChangeEvent, useState, useEffect } from "react";
 // import { supabase } from "~/components/providers/auth";
 
-// import ExifReader from "exifreader";
-// import EXIF from "exif-js";
+// @ts-ignore no type def
 import { parse } from "exifr";
 
 export function UploadPhotoButton() {
