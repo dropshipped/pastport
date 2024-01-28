@@ -51,8 +51,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const handleOAuthLogin = async (provider: "google" | "github") => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider,options: {
-        redirectTo: "http://localhost:3000/@"+session?.user.email,
+      provider,
+      options: {
+        redirectTo:
+          `${
+            process.env.NODE_ENV == "production"
+              ? "https://pastport.vercel.app/@"
+              : "http://localhost:3000/@"
+          }` + session?.user.email,
       },
     });
     if (error) console.log(error);

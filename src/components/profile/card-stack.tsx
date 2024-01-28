@@ -139,7 +139,7 @@ export const CardStack = () => {
             >
               <Image
                 draggable={false}
-                src={TRIPS[index + randomInt(0, TRIPS.length)]}
+                src={TRIPS[index + randomInt(0, TRIPS.length)]!}
                 alt="your uploaded photo"
                 fill
               />
