@@ -6,6 +6,8 @@ import { GithubIcon } from "~/assets/icons/github";
 import { GoogleIcon } from "~/assets/icons/google";
 import { AppleIcon } from "~/assets/icons/apple";
 import { PencilIcon } from "~/assets/icons/pencil";
+import { PeopleIcon } from "~/assets/icons/people";
+import { CameraIcon } from "~/assets/icons/camera";
 
 export {
   ChevronIcon,
@@ -16,4 +18,6 @@ export {
   GoogleIcon,
   AppleIcon,
   PencilIcon,
+  PeopleIcon,
+  CameraIcon,
 };

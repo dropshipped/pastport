@@ -144,7 +144,13 @@ function Fade({ index }: { index: number }) {
         >
           {CATCHPHRASES[index % CATCHPHRASES.length]}
         </div>
-        <Image src={IMAGES[index]!.url} alt="Travel photos" fill />
+        <Image
+          src={IMAGES[index]!.url}
+          alt="Travel photos"
+          fill
+          className="object-cover"
+          priority
+        />
       </motion.div>
     </AnimatePresence>
   );

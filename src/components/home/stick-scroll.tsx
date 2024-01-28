@@ -64,7 +64,7 @@ export const StickyScroll = ({
           // backgroundColor: backgroundColors[activeCard % backgroundColors.length],
         }
       }
-      className="relative flex h-full justify-center gap-16 space-x-10 overflow-y-auto rounded-md bg-[#272628] p-10 scrollbar-hide"
+      className="relative flex h-full justify-center gap-16 space-x-10 overflow-y-auto rounded-md p-10 scrollbar-hide"
       ref={ref}
     >
       <div className="div relative flex items-start px-4">

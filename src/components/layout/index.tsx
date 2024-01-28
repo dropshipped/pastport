@@ -33,6 +33,7 @@ const Layout = ({ children }: Props) => {
           media="(prefers-color-scheme: light)"
           content="#ffffff"
         />
+        <meta name="theme-color" content="#000000" />
 
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="icon" href="/favicon.ico" />

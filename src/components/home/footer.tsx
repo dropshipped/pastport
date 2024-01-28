@@ -26,11 +26,14 @@ export default function Footer() {
           <Link className="hover:underline" href="#">
             Home
           </Link>
-          <Link className="hover:underline" href="#">
+          <Link
+            className="hover:underline"
+            href="https://devpost.com/software/pastport"
+          >
             Devpost
           </Link>
-          <Link className="hover:underline" href="#">
-            About
+          <Link className="hover:underline" href="/@jgoon">
+            @jgoon
           </Link>
         </nav>
         {/* <div className="flex items-center justify-center gap-4 md:justify-start">
