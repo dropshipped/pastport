@@ -1,9 +1,16 @@
-import Map, { Layer, type MapLayerMouseEvent, Source } from "react-map-gl";
+import Map, {
+  Layer,
+  type MapLayerMouseEvent,
+  Source,
+  Marker,
+} from "react-map-gl";
+import { Image } from "@nextui-org/react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { countiesLayer, highlightLayer } from "./map-style";
+import { countriesLayer } from "./map-style";
 import { useCallback, useMemo, useState } from "react";
+import { TripMarker } from "./marker";
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
@@ -18,21 +25,21 @@ interface HoverInfo {
 export const MapView = ({}: Props) => {
   const [hoverInfo, setHoverInfo] = useState<HoverInfo | null>(null);
 
-  const onHover = useCallback((event: MapLayerMouseEvent) => {
-    const county = event.features && event.features[0];
-    const hoverInfo: HoverInfo = {
-      longitude: event.lngLat.lng,
-      latitude: event.lngLat.lat,
-      countyName: county?.properties?.COUNTY_NAME as string,
-    } as HoverInfo;
-    setHoverInfo(hoverInfo);
-    console.log(event);
-  }, []);
+  // const onHover = useCallback((event: MapLayerMouseEvent) => {
+  //   const county = event.features && event.features[0];
+  //   const hoverInfo: HoverInfo = {
+  //     longitude: event.lngLat.lng,
+  //     latitude: event.lngLat.lat,
+  //     countyName: county?.properties?.COUNTY_NAME as string,
+  //   } as HoverInfo;
+  //   setHoverInfo(hoverInfo);
+  //   console.log(event);
+  // }, []);
 
-  const selectedCounty = hoverInfo?.countyName ?? "";
+  // const selectedCounty = hoverInfo?.countyName ?? "";
   const filter = useMemo(
-    () => ["in", "COUNTY", selectedCounty],
-    [selectedCounty],
+    () => ["in", "iso_3166_1_alpha_3", "NLD", "ITA", "USA"],
+    [],
   );
   return (
     <Map
@@ -48,25 +55,28 @@ export const MapView = ({}: Props) => {
         width: "100%",
         height: "100%",
       }}
-      onMouseMove={onHover}
+      // onMouseMove={onHover}
       interactiveLayerIds={["counties"]}
-      mapStyle="mapbox://styles/mapbox/streets-v12"
+      mapStyle={"mapbox://styles/amho2/clrwiarp3008901pu0tpcb4xb"}
     >
-      <Source type="vector" url="mapbox://mapbox.82pkq93d">
-        <Layer beforeId="waterway-label" {...countiesLayer} />
-        <Layer beforeId="waterway-label" {...highlightLayer} filter={filter} />
+      <Source
+        id="admin-1"
+        type="vector"
+        url="mapbox://mapbox.country-boundaries-v1"
+      >
+        <Layer beforeId="waterway-label" {...countriesLayer} filter={filter} />
+        {/* <Layer beforeId="waterway-label" {...highlightLayer} filter={filter} /> */}
       </Source>
-      {/* {selectedCounty && (
-        <Popup
-          longitude={hoverInfo.longitude}
-          latitude={hoverInfo.latitude}
-          offset={[0, -10]}
-          closeButton={false}
-          className="county-info"
-        >
-          {selectedCounty}
-        </Popup>
-      )} */}
+
+      {/* <TripMarker/> */}
+
+      <TripMarker
+        longitude={-100}
+        latitude={40}
+        imageUrl={
+          "https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
+        }
+      />
     </Map>
   );
 };
