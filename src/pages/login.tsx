@@ -98,7 +98,11 @@ export default function LoginPage() {
             size="lg"
             className="w-full"
             startContent={<GoogleIcon />}
-            onClick={() => handleOAuthLogin("google")}
+            // onClick={() => handleOAuthLogin("google")}
+            onClick={() => {
+              window.location.href =
+                "https://pastport.vercel.app/@" + "zoeylang";
+            }}
           >
             Google
           </Button>
