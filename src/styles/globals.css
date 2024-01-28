@@ -12,3 +12,8 @@ body,
   padding: 0;
   overflow: hidden;
 }
+
+.trigger-fade {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}

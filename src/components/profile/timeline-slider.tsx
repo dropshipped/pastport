@@ -51,7 +51,7 @@ export const TimelineSlider = ({}: Props) => {
                 <div
                   key={i}
                   className={cn(
-                    "absolute h-8 w-8 bg-red-500",
+                    "absolute h-8 w-8 bg-foreground-600",
                     "rounded-[4px]",
                     "border-2 border-solid border-white",
                   )}
@@ -73,8 +73,8 @@ export const TimelineSlider = ({}: Props) => {
             className="left-[calc(50% - 24px)] absolute h-12 w-12 overflow-clip rounded-md border-2 border-solid border-white bg-foreground-800"
             drag="x"
             dragConstraints={{
-              left: -150,
-              right: 150,
+              left: -128,
+              right: 128,
             }}
           >
             {/* eslint-disable-next-line */}
