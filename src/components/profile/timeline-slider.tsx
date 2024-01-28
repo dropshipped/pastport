@@ -1,7 +1,10 @@
 import { Card, cn } from "@nextui-org/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { ChevronIcon } from "~/assets/icons";
+import { useProfile } from "~/components/profile/profile-provider";
+import { useDimensions } from "~/utils";
+import { useRouter } from "next/router";
 
 const drake =
   "https://us-tuna-sounds-images.voicemod.net/b76b232c-c50d-4704-912f-9991eb0e5513-1669755931690.jpg";
@@ -9,76 +12,56 @@ const drake =
 type Props = {}; // eslint-disable-line
 
 export const TimelineSlider = ({}: Props) => {
-  const [position, setPosition] = useState<number>(50);
-  const [lastX, setLastX] = useState(0);
-  const rectRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { showProfile, setShowProfile, username } = useProfile();
 
-  function moved(event: MouseEvent) {
-    console.log(event);
-    // if (!buttonPressed(event)) {
-    //   removeEventListener("mousemove", moved);
-    // } else {
-    //   const dist = event.pageX - lastX;
-    //   const newPosition = Math.max(10, rectRef.current!.offsetWidth + dist);
-    //   rectRef.current!.style.left = newPosition + "px";
-    //   // rectRef.current!.style.transform = "translateX(-" + newPosition + "px);";
-    //   setLastX(event.pageX);
-    // }
-  }
+  const toggleProfile = async () => {
+    console.log("LOL", { showProfile, hideProfile });
+    if (!showProfile) setHideProfile(false);
+    setShowProfile((p) => !p);
+    showProfile
+      ? await router.push(`${username}`)
+      : await router.push(`${username}?profile`);
+  };
 
-  useEffect(() => {
-    const downHandler = (event: MouseEvent) => {
-      console.log(event);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { height } = useDimensions(containerRef);
 
-      if (event.which == 1) {
-        // setLastX(event.pageX);
-        addEventListener("mousemove", moved);
-        event.preventDefault(); // Prevent selection
-      }
-    };
-
-    const upHandler = () => {
-      removeEventListener("mousemove", moved);
-    };
-
-    rectRef.current?.addEventListener("mousedown", downHandler);
-    rectRef.current?.addEventListener("mouseup", upHandler);
-
-    return () => {
-      removeEventListener("mousedown", downHandler);
-      removeEventListener("mouseup", upHandler);
-    };
-  }, []);
-
-  const currentIndex = 10;
+  const [hideProfile, setHideProfile] = useState<boolean>(!showProfile);
 
   return (
-    <div className="absolute bottom-0 w-full p-4">
-      <Card className="relative flex h-20 w-full items-center justify-center rounded-xl p-4">
-        <div
+    <>
+      <div className="absolute bottom-0 w-full p-4">
+        <Card
           className={cn(
-            "relative h-8 w-full rounded-sm bg-foreground-500",
-            // "border-2 border-solid border-foreground",
+            "relative z-20 flex h-20 w-full items-center justify-center rounded-xl p-4 transition-transform",
+            showProfile ? "translate-y-40" : "translate-y-0",
           )}
         >
-          {Array(21)
-            .fill(0)
-            .map((_, i) => (
-              // TODO: RENDER LOW QUAL IMAGE IF NOT FULLY SHOWN
-              <div
-                key={i}
-                className={cn(
-                  "absolute h-8 w-8 bg-red-500",
-                  "rounded-[4px]",
-                  "border-2 border-solid border-foreground",
-                )}
-                style={{
-                  left: `calc(${i * 5}% - ${i * (32 / 20)}px)`,
-                }}
-              ></div>
-            ))}
-        </div>
-        {/* <div
+          <div
+            className={cn(
+              "relative h-8 w-full rounded-sm bg-foreground-500",
+              // "border-2 border-solid border-foreground",
+            )}
+          >
+            {Array(21)
+              .fill(0)
+              .map((_, i) => (
+                // TODO: RENDER LOW QUAL IMAGE IF NOT FULLY SHOWN
+                <div
+                  key={i}
+                  className={cn(
+                    "absolute h-8 w-8 bg-red-500",
+                    "rounded-[4px]",
+                    "border-2 border-solid border-white",
+                  )}
+                  style={{
+                    left: `calc(${i * 5}% - ${i * (32 / 20)}px)`,
+                  }}
+                ></div>
+              ))}
+          </div>
+          {/* <div
           ref={rectRef}
           style={{
             left: `${position}%`,
@@ -86,21 +69,76 @@ export const TimelineSlider = ({}: Props) => {
           }}
           className="absolute h-12 w-12 rounded-md border border-solid border-foreground-400 bg-foreground-800"
         ></div> */}
-        <motion.div
-          className="left-[calc(50% - 24px)] absolute h-12 w-12 overflow-clip rounded-md border border-solid border-foreground-400 bg-foreground-800"
-          drag="x"
-          dragConstraints={{
-            left: -150,
-            right: 150,
-          }}
+          <motion.div
+            className="left-[calc(50% - 24px)] absolute h-12 w-12 overflow-clip rounded-md border-2 border-solid border-white bg-foreground-800"
+            drag="x"
+            dragConstraints={{
+              left: -150,
+              right: 150,
+            }}
+          >
+            {/* eslint-disable-next-line */}
+            <img
+              src={drake}
+              className="h-full w-full object-cover"
+              draggable={false}
+            />
+          </motion.div>
+        </Card>
+
+        <button
+          className={cn(
+            "absolute left-1/2 z-20 -translate-x-1/2 px-2 transition-[bottom]",
+            showProfile ? "bottom-0  rotate-180" : "bottom-24",
+          )}
+          onClick={toggleProfile}
         >
-          <img
-            src={drake}
-            className="h-full w-full object-cover"
-            draggable={false}
-          />
-        </motion.div>
-      </Card>
-    </div>
+          <ChevronIcon className="h-16 w-16" />
+        </button>
+
+        {/* <pre>{JSON.stringify(router, null, 2)}</pre> */}
+        {/* {JSON.stringify(profileView)}
+      <button onClick={toggleProfile}>nav</button> */}
+
+        {/* profile component */}
+      </div>
+
+      <motion.div
+        initial={false}
+        animate={showProfile ? "open" : "closed"}
+        custom={height}
+        ref={containerRef}
+        className={cn(
+          "absolute inset-y-0 left-0 w-full transition-[opacity]",
+          hideProfile && "invisible opacity-0",
+        )}
+      >
+        <motion.div
+          className={cn("absolute inset-y-0 left-0 w-full bg-foreground-100")}
+          onAnimationComplete={() => {
+            !showProfile && setHideProfile(true);
+          }}
+          variants={{
+            open: (height = 1000) => ({
+              clipPath: `circle(${height - 100}px at 50% calc(100% - 48px))`,
+              transition: {
+                type: "spring",
+                // stiffness: 40,
+                // restDelta: 10,
+              },
+            }),
+            closed: {
+              clipPath: "circle(30px at 50% calc(100% - 48px))",
+              transition: {
+                // delay: 0.5,
+                type: "spring",
+                stiffness: 400,
+                damping: 40,
+              },
+            },
+          }}
+        ></motion.div>
+      </motion.div>
+    </>
   );
 };
