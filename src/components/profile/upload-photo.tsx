@@ -8,21 +8,30 @@ import { randomUUID } from "crypto";
 import { type ChangeEvent, useState } from "react";
 import { supabase } from "~/components/providers/auth";
 
+import ExifReader from "exifreader";
+
 export function UploadPhotoButton() {
   const [image, setImage] = useState<File | null>(null);
+
+  if (image) {
+    const tags = ExifReader.load(image!);
+    console.log(tags);
+  }
 
   const onSubmit = async () => {
     if (image === null) {
       console.log("null image");
       return;
     }
-    
+
     const { data, error } = await supabase.storage
       .from("avatars")
       .upload(`public/${randomUUID()}.png`, image, {
         cacheControl: "3600",
         upsert: false,
       });
+
+    console.log(data, error);
   };
 
   return (
