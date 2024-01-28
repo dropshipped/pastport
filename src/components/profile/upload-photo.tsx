@@ -4,7 +4,7 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { CardHeader, CardBody, Card, Input } from "@nextui-org/react";
-import { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 
 export function UploadPhotoButton() {
   const [image, setImage] = useState<File | null>(null);
@@ -24,7 +24,7 @@ export function UploadPhotoButton() {
             type="file"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               if (e.target.files && e.target.files.length > 0) {
-                const image = e.target.files[0]; // Safely access the file using TypeScript
+                const image = e.target.files[0]!; // Safely access the file using TypeScript
                 setImage(image); // Set the file state
               }
             }}
