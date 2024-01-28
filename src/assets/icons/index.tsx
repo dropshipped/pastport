@@ -1,3 +1,6 @@
 import { ChevronIcon } from "~/assets/icons/chevron";
+import { GlobeIcon } from "~/assets/icons/globe";
+import { HouseIcon } from "~/assets/icons/house";
+import { BuildingsIcon } from "~/assets/icons/building";
 
-export { ChevronIcon };
+export { ChevronIcon, GlobeIcon, HouseIcon, BuildingsIcon };

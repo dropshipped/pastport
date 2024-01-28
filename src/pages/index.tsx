@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import { env } from "~/env";
 
 import { api } from "~/utils/api";
 

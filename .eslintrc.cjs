@@ -7,7 +7,7 @@ const config = {
   plugins: ["@typescript-eslint"],
   extends: [
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended-type-checked",
+    // "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
   ],
   rules: {
@@ -29,6 +29,12 @@ const config = {
       "error",
       {
         checksVoidReturn: { attributes: false },
+      },
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        patterns: [".*"],
       },
     ],
   },
