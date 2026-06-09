@@ -8,7 +8,7 @@ export const ProfileBarWrapper = () => {
   return (
     <div
       className={cn(
-        "absolute top-0 w-full transition-[top]",
+        "pointer-events-auto absolute top-0 w-full transition-[top]",
         showProfile && "-top-[92px]",
       )}
     >
