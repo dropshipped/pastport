@@ -1,5 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useState } from "react";
+import { MobileChrome } from "~/components/layout/mobile-chrome";
 import { MapView } from "~/components/mapview";
 import { ProfileBarWrapper } from "~/components/profile/profile-bar-wrapper";
 import ProfileDrawer from "~/components/profile/profile-drawer";
@@ -32,10 +33,16 @@ const ProfilePage = ({
 
   return (
     <ProfileProvider initialState={{ showProfile, username }}>
-      <MapView trips={trips} />
-      <ProfileBarWrapper />
-      <TimelineSlider photos={photos} />
-      <ProfileDrawer />
+      <div className="relative h-full w-full">
+        <div className="absolute inset-0">
+          <MapView trips={trips} />
+        </div>
+        <MobileChrome>
+          <ProfileBarWrapper />
+          <TimelineSlider photos={photos} />
+          <ProfileDrawer />
+        </MobileChrome>
+      </div>
     </ProfileProvider>
   );
 };
