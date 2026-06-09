@@ -8,7 +8,7 @@ type Props = {
 export const MobileChrome = ({ children }: Props) => {
   return (
     <div className="pointer-events-none absolute inset-0 flex justify-center">
-      <div className="pointer-events-auto relative h-full w-full max-w-app">
+      <div className="pointer-events-none relative h-full w-full max-w-app">
         {children}
       </div>
     </div>

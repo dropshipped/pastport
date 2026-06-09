@@ -24,7 +24,7 @@ export const TimelineSlider = ({ photos }: { photos: string[] }) => {
   };
 
   return (
-    <div className="absolute bottom-0 w-full p-4">
+    <div className="pointer-events-auto absolute bottom-0 w-full p-4">
       <Card
         className={cn(
           "relative z-20 flex h-24 w-full items-center justify-center overflow-hidden rounded-xl px-2 py-3 transition-transform",
