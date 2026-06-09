@@ -16,10 +16,80 @@ import {
   useState,
 } from "react";
 
-const SPACING = 44;
-const CENTER_SIZE = 56;
+const SPACING = 18;
+const CENTER_SIZE = 48;
+const MIN_OVERLAP = 6;
+const MAX_SCALE = 1;
+const MIN_SCALE = 0.4;
+const SCALE_STEP_DECAY = 0.52;
+const MIN_OPACITY = 0.3;
 
 const mod = (n: number, m: number) => ((n % m) + m) % m;
+
+function normalizedDistanceFromCenter(
+  distance: number,
+  containerWidth: number,
+) {
+  const halfWidth = containerWidth / 2;
+  if (!halfWidth) return 0;
+
+  const pixelDistance = Math.abs(distance) * SPACING;
+  return Math.min(1, pixelDistance / halfWidth);
+}
+
+function scaleFromDistance(distance: number, containerWidth: number) {
+  const step = Math.abs(distance);
+  const stepFalloff = Math.exp(-step * SCALE_STEP_DECAY);
+  const stepScale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * stepFalloff;
+
+  const containerT = normalizedDistanceFromCenter(distance, containerWidth);
+  const edgeScale =
+    MIN_SCALE +
+    (MAX_SCALE - MIN_SCALE) * Math.cos((containerT * Math.PI) / 2);
+
+  return Math.min(stepScale, edgeScale);
+}
+
+function opacityFromDistance(distance: number, containerWidth: number) {
+  const step = Math.abs(distance);
+  const stepOpacity =
+    MIN_OPACITY + (1 - MIN_OPACITY) * Math.exp(-step * SCALE_STEP_DECAY);
+
+  const containerT = normalizedDistanceFromCenter(distance, containerWidth);
+  const edgeOpacity =
+    MIN_OPACITY +
+    (1 - MIN_OPACITY) * Math.cos((containerT * Math.PI) / 2);
+
+  return Math.min(stepOpacity, edgeOpacity);
+}
+
+function pullTowardCenter(distance: number, containerWidth: number) {
+  if (Math.abs(distance) < 0.001) return 0;
+
+  const sign = Math.sign(distance);
+  const absDistance = Math.abs(distance);
+  const wholeSteps = Math.floor(absDistance);
+  const fractionalStep = absDistance - wholeSteps;
+  let pull = 0;
+
+  for (let step = 0; step < wholeSteps; step++) {
+    const leftScale = scaleFromDistance(step, containerWidth);
+    const rightScale = scaleFromDistance(step + 1, containerWidth);
+    const touchDistance =
+      (CENTER_SIZE * leftScale + CENTER_SIZE * rightScale) / 2 - MIN_OVERLAP;
+    pull += Math.max(0, SPACING - touchDistance);
+  }
+
+  if (fractionalStep > 0) {
+    const leftScale = scaleFromDistance(wholeSteps, containerWidth);
+    const rightScale = scaleFromDistance(wholeSteps + 1, containerWidth);
+    const touchDistance =
+      (CENTER_SIZE * leftScale + CENTER_SIZE * rightScale) / 2 - MIN_OVERLAP;
+    pull += Math.max(0, SPACING - touchDistance) * fractionalStep;
+  }
+
+  return -sign * pull;
+}
 
 type Props = {
   photos: string[];
@@ -54,27 +124,37 @@ function CarouselPhoto({
   });
 
   const scale = useTransform(distance, (d) =>
-    Math.max(0.5, 1 - Math.abs(d) * 0.16),
+    scaleFromDistance(d, containerWidth),
   );
   const opacity = useTransform(distance, (d) =>
-    Math.max(0.35, 1 - Math.abs(d) * 0.18),
+    opacityFromDistance(d, containerWidth),
   );
   const zIndex = useTransform(distance, (d) =>
-    Math.round(20 - Math.abs(d) * 2),
+    Math.round(30 - Math.abs(d) * 4),
   );
+  const boxShadow = useTransform(distance, (d) =>
+    Math.abs(d) < 0.4
+      ? "0 3px 10px rgba(0,0,0,0.22)"
+      : "0 1px 2px rgba(0,0,0,0.1)",
+  );
+  const x = useTransform(distance, (d) => {
+    const pull = pullTowardCenter(d, containerWidth);
+    return pull === 0 ? "-50%" : `calc(-50% + ${pull}px)`;
+  });
 
   return (
     <motion.div
-      className="pointer-events-none absolute top-1/2 overflow-hidden rounded-md border-2 border-white shadow-sm"
+      className="pointer-events-none absolute top-1/2 overflow-hidden rounded-md border-2 border-white"
       style={{
         left: index * SPACING,
         width: CENTER_SIZE,
         height: CENTER_SIZE,
-        x: "-50%",
+        x,
         y: "-50%",
         scale,
         opacity,
         zIndex,
+        boxShadow,
         transformOrigin: "center center",
       }}
     >
@@ -273,7 +353,7 @@ export function PhotoCarousel({
     <div
       ref={containerRef}
       className={cn(
-        "relative h-16 w-full touch-none select-none overflow-hidden",
+        "relative h-12 w-full touch-none select-none overflow-hidden",
         isDragging ? "cursor-grabbing" : "cursor-grab",
         className,
       )}
