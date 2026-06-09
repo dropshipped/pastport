@@ -3,22 +3,17 @@ import { motion } from "framer-motion";
 import move from "lodash-move";
 import Image from "next/image";
 import { useState } from "react";
-import { mockTrips } from "~/data/mock-trips";
 
 const CARDS = ["#266678", "#cb7c7a", " #36a18b", "#cda35f", "#747474"];
-
-const TRIPS = mockTrips.map((trip) => trip.imageUrl);
 
 const CARD_OFFSET = 0;
 const SCALE_FACTOR = 0.05;
 
-// random integer between min and max
+type Props = {
+  imageUrl: string;
+};
 
-function randomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-export const CardStack = () => {
+export const CardStack = ({ imageUrl }: Props) => {
   const [cards, setCards] = useState(CARDS);
 
   const moveToEnd = (from: number) => {
@@ -55,7 +50,7 @@ export const CardStack = () => {
             >
               <Image
                 draggable={false}
-                src={TRIPS[index + randomInt(0, TRIPS.length)]!}
+                src={imageUrl}
                 alt="your uploaded photo"
                 fill
               />

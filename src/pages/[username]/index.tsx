@@ -37,10 +37,10 @@ const ProfilePage = ({
         <div className="absolute inset-0">
           <MapView trips={trips} />
         </div>
+        <ProfileDrawer />
         <MobileChrome>
           <ProfileBarWrapper />
           <TimelineSlider photos={photos} />
-          <ProfileDrawer />
         </MobileChrome>
       </div>
     </ProfileProvider>
