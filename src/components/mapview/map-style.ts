@@ -2,10 +2,7 @@ import type { FillLayer } from "react-map-gl";
 
 export const countriesLayer: FillLayer = {
   id: "country-boundaries",
-  source: {
-    type: "vector",
-    url: "mapbox://mapbox.country-boundaries-v1",
-  },
+  source: "admin-1",
   "source-layer": "country_boundaries",
   type: "fill",
   paint: {

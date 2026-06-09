@@ -52,13 +52,12 @@ export const MapView = ({ trips }: { trips: Trip[] }) => {
     <Map
       ref={mapRef}
       mapboxAccessToken={token}
-      mapLib={import("mapbox-gl")}
       initialViewState={{
         longitude: -100,
         latitude: 40,
         zoom: 0,
       }}
-      projection="globe"
+      projection={{ name: "globe" }}
       style={{
         width: "100%",
         height: "100%",
