@@ -1,27 +1,21 @@
-import Map, { Layer, Source } from "react-map-gl";
+import Map, { Layer, Source, type MapRef } from "react-map-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // eslint-disable-next-line no-restricted-imports
 import { TripMarker } from "./marker";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 // eslint-disable-next-line no-restricted-imports
 import { countriesLayer } from "./map-style";
+import { useProfile } from "~/components/profile/profile-provider";
+import { type Trip } from "~/models/trip";
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
-interface Trip {
-  title: string;
-  longitude: number;
-  latitude: number;
-  countryCode: string;
-  imageUrl: string;
-  date: string;
-}
-
 export const MapView = ({ trips }: { trips: Trip[] }) => {
-  // const [trips, setTrips] = useState<Trip[]>(initialTrips);
-  // const [focused, setFocused] = useState<Trip>(trips[1]);
+  const mapRef = useRef<MapRef>(null);
+  const mapLoadedRef = useRef(false);
+  const { activeTripIndex } = useProfile();
 
   const filter = useMemo(
     () => [
@@ -32,8 +26,31 @@ export const MapView = ({ trips }: { trips: Trip[] }) => {
     [trips],
   );
 
+  const flyToTrip = useCallback(
+    (tripIndex: number) => {
+      const trip = trips[tripIndex];
+      const map = mapRef.current;
+      if (!trip || !map || !mapLoadedRef.current) return;
+
+      map.flyTo({
+        center: [trip.longitude, trip.latitude],
+        zoom: 4.5,
+        duration: 2400,
+        essential: true,
+        curve: 1.42,
+        speed: 0.65,
+      });
+    },
+    [trips],
+  );
+
+  useEffect(() => {
+    flyToTrip(activeTripIndex);
+  }, [activeTripIndex, flyToTrip]);
+
   return (
     <Map
+      ref={mapRef}
       mapboxAccessToken={token}
       mapLib={import("mapbox-gl")}
       initialViewState={{
@@ -41,14 +58,17 @@ export const MapView = ({ trips }: { trips: Trip[] }) => {
         latitude: 40,
         zoom: 0,
       }}
-      // projection={"globe"} // idk what this does
+      projection="globe"
       style={{
         width: "100%",
         height: "100%",
       }}
-      // onMouseMove={onHover}
       interactiveLayerIds={["counties"]}
       mapStyle={"mapbox://styles/amho2/clrwiarp3008901pu0tpcb4xb"}
+      onLoad={() => {
+        mapLoadedRef.current = true;
+        flyToTrip(activeTripIndex);
+      }}
     >
       <Source
         id="admin-1"
@@ -56,7 +76,6 @@ export const MapView = ({ trips }: { trips: Trip[] }) => {
         url="mapbox://mapbox.country-boundaries-v1"
       >
         <Layer beforeId="waterway-label" {...countriesLayer} filter={filter} />
-        {/* <Layer beforeId="waterway-label" {...highlightLayer} filter={filter} /> */}
       </Source>
 
       {trips.map((trip, i) => {

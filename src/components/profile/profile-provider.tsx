@@ -19,6 +19,8 @@ type ProfileProviderType = {
   hideProfile: boolean;
   setHideProfile: Dispatch<SetStateAction<boolean>>;
   height?: number;
+  activeTripIndex: number;
+  setActiveTripIndex: Dispatch<SetStateAction<number>>;
 };
 
 const ProfileContext = createContext<ProfileProviderType | null>(null);
@@ -38,6 +40,7 @@ export function ProfileProvider({
   );
   const [username, setUsername] = useState<string>(initialState.username);
   const [hideProfile, setHideProfile] = useState<boolean>(!showProfile);
+  const [activeTripIndex, setActiveTripIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const { height } = useDimensions(containerRef);
 
@@ -50,6 +53,8 @@ export function ProfileProvider({
     hideProfile,
     setHideProfile,
     height,
+    activeTripIndex,
+    setActiveTripIndex,
   };
 
   return (
