@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        app: "430px",
+      },
       fontFamily: {
         sans: [
           // "var(--font-sans)",

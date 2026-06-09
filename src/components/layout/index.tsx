@@ -60,8 +60,10 @@ const Layout = ({ children }: Props) => {
           color="#6dbe45"
         />
       </Head>
-      <div className="relative flex h-full w-full items-center justify-center">
-        {children}
+      <div className="relative flex h-full w-full justify-center">
+        <div className="relative h-full w-full max-w-app overflow-hidden">
+          {children}
+        </div>
       </div>
     </>
   );
